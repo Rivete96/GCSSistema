@@ -6,9 +6,8 @@
 package Entidad;
 
 /**
- *
- * @author ricardo
- */
+     * @author      Ricardo Velasquez Tejerina
+     */
 public class ClsETDEntregable {
 
         private int ENTid_entregable;

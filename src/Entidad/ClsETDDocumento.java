@@ -6,9 +6,8 @@
 package Entidad;
 
 /**
- *
- * @author ricardo
- */
+     * @author      Ricardo Velasquez Tejerina
+     */
 public class ClsETDDocumento {
 
      private int DOCid_documento;
