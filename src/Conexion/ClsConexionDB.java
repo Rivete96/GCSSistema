@@ -6,11 +6,8 @@
 package Conexion;
 //Libreria de conexion a Mysql
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.*;
+import java.util.logging.*;
 import javax.swing.JOptionPane;
 /**
  *
@@ -20,25 +17,42 @@ public class ClsConexionDB {
         /**
      * @author      Ricardo Velasquez Tejerina
      */
-        private static Connection conexion = null;
-    
-    public Connection getConnection()
-    {
+
+    public static Connection AbrirConexion() {
+        
+        Connection conexion = null;
         try
         {
-            //conexion con MySQL
             MysqlConnectionPoolDataSource ds = new MysqlConnectionPoolDataSource();
-            ds.setServerName("localhost"); //si esta en la web se ingresa la IP
+            ds.setServerName("127.0.0.1");
             ds.setPort(3306);
             ds.setDatabaseName("gestiondb");
             conexion = ds.getConnection("root","");
         }
-        //En el caso de la conexion falle, o algun error de logeo se de mostrara mensaje.
-        catch(Exception ex)
+        catch(SQLException ex)
         {
-            JOptionPane.showMessageDialog(null,
-            "Error de conexion a la BD...","Conexion",1);
+            Logger.getLogger(ClsConexionDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return conexion;
+        
+    }
+    
+    /**
+     * Cierra la conexion con MySQL.
+     * <p>
+     * @author  Ricardo Velasquez Tejerina
+     * @param       xConexion       La conexion a cerrar.
+     */
+    public static void CerrarConexion(Connection xConexion) {
+        
+        try
+        {
+            xConexion.close();            
+        }
+        catch(SQLException ex)
+        {
+            Logger.getLogger(ClsConexionDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
